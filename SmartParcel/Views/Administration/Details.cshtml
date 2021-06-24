@@ -1,0 +1,45 @@
+﻿@model SmartParcel.Models.ApplicationUser
+
+@{ 
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <style>
+        .navbar-fixed-bottom, .navbar-fixed-top {
+            position: inherit;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <div class="col-12 col-lg-7">
+                    <!--Image here-->
+                    <img src="@Url.Content(Model.PhotoPath)" class="card-img-top" width="350">
+                </div>
+
+                <div class="col-12 col-lg-5">
+                    <h4>@Model.FirstName</h4>
+                    <h4>@Model.LastName</h4>
+                    <h4>@Model.DOB</h4>
+                    <h4>@Model.HouseNumber</h4>
+                    <h4>@Model.PostCode</h4>
+                    <h4>@Model.DriverLicence</h4>
+                    <h4>@Model.ExpiryDate</h4>
+                </div>
+                <a asp-action="ApproveDriver" asp-controller="Administration" asp-route-id="@Model.Id"><i style="color:#dc3545;" class="fa fa-check fa-4x"></i></a>
+                <a href="@Url.Action("RejectDriver","Administration", new { id = Model.Id})"><i style="color:#dc3545;" class="fa fa-trash fa-4x"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

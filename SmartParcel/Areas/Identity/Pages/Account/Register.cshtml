@@ -1,0 +1,145 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<head>
+
+    <style>
+
+        .row{
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+    </style>
+
+</head>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <form enctype="multipart/form-data" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.FirstName"></label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.LastName"></label>
+                    <input asp-for="Input.LastName" class="form-control" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.DOB"></label>
+                    <input asp-for="Input.DOB" type="date" class="form-control" />
+                    <span asp-validation-for="Input.DOB" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.HouseNumber"></label>
+                    <input asp-for="Input.HouseNumber" class="form-control" />
+                    <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.PostCode"></label>
+                    <input asp-for="Input.PostCode" class="form-control" />
+                    <span asp-validation-for="Input.PostCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="Input.MobileNumber"></label>
+                    <input asp-for="Input.MobileNumber" class="form-control" placeholder="0044XXXXXXXXXX"/>
+                    <span asp-validation-for="Input.MobileNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <input asp-for="Input.IsDriverAlso" onclick="ShowHideDiv(this)" id="checkDriver" />
+                    <label>Please Check If You Are A Driver</label>
+                </div>
+
+            <div id="DriverInfo">
+                <div class="form-group row">
+                <label asp-for="Input.DriverLicence"></label>
+                <input asp-for="Input.DriverLicence" class="form-control" id="license" />
+                </div>
+
+                @*<div class="form-group row">
+                <label asp-for="Input.ExpiryDate"></label>
+                <input asp-for="Input.ExpiryDate" id="expirydate" type="date" class="form-control" />
+                </div>*@
+
+            </div>
+                <button type="submit" class="btn btn-primary" onclick="check()">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#DriverInfo").hide();
+
+
+        $('.custom-file-input').on("change", function () {
+            var filename = $(this).val().split("\\").pop();
+            $(this).next('.custom-file-label').html(filename);
+        });
+    });
+
+
+    function ShowHideDiv(checkDriver) {
+        var driver = document.getElementById("DriverInfo");
+        driver.style.display = checkDriver.checked ? "block" : "none";
+    }
+
+    function check() {
+        var driver = document.getElementById("checkDriver");
+        if (driver.checked) {
+
+            if (document.getElementById('license').value == '') {
+                alert("Please Enter Driver Leicense");
+                return false;
+            }
+            if (document.getElementById('expirydate').value == '') {
+                alert("Please Enter Driver Leicense Expiry Date");
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+
+}

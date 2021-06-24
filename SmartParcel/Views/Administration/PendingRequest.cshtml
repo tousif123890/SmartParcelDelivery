@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ApplicationUser>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <style>
+
+        .navbar-fixed-bottom, .navbar-fixed-top{
+            position:inherit;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                             {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => user.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => user.LastName)
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@user.Id"><i style="color:#4272d7;font-size:36px" class="fa fa-arrow-circle-o-right"></i></a> 
+                                </td>
+                            </tr>
+                             }
+                        </tbody>
+                    </table>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

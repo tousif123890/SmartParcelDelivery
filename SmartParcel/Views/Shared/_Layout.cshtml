@@ -1,0 +1,221 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Delivery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+
+    <link href="~/Style/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Style/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Style/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+
+</head>
+<body>
+    <!-- navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><h1><span><i class="fa fa-hand-o-right" ></i></span>S P D</h1></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        if (User.IsInRole("Users"))
+                        {
+                            <li>
+                                <a href="@Url.Action("PostOffer","Users")">Post Offers</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("History","Users")">Order History</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Update","Users")">Profile</a>
+                            </li>
+                        }
+
+                        if (User.IsInRole("DriverUser"))
+                        {
+                            <li>
+                                <a href="@Url.Action("PostOffer","Users")">Post Offers</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ViewOffer","Offers")">Offers</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("History","Users")">Order History</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Update","Users")">Profile</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("PendingWork","Drivers")">Pending</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("DriverHistory","Drivers")">Previous Work</a>
+                            </li>
+                        }
+
+                        if(User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a href="@Url.Action("PendingRequest","Administration")">Pending Request</a>
+                            </li>
+                        }
+                            <li>
+                                <a asp-action="Logout" asp-controller="Account">Logout</a>
+                            </li>
+                    }
+
+                    else
+                    {
+                        <li>
+                            <a href="@Url.Action("Register", "Account")">Register</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Login", "Account")">Login</a>
+                        </li>
+                    }
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+    <!-- navigation -->
+    <!--MyBody-->
+
+
+    @RenderBody()
+
+    @*<!--MyBodyEnds-->*@
+
+    <!-- footer section -->
+    <section class="footer-agileits">
+        <div class="container">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>More Info</h3>
+                <ul class="info-links">
+                    <li><a href="#"><i class="fa fa-hand-o-right" aria-hidden="true"></i> About Us</a></li>
+                    <li><a href="#"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Contact Us</a></li>
+                    <li><a href="#"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>Our Links</h3>
+                <ul class="footer-links">
+                    <li><a href="service.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Our Services</a></li>
+                    <li><a href="work.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Our Work</a></li>
+                    <li><a href="process.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Process</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <div class="address">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        <p class="p3">123 SPD OFFICE</p>
+                        <p class="p4">Office Road ,Leicester, UK</p>
+                    </div>
+                    <div class="phone">
+                        <i class="glyphicon glyphicon-phone-alt"></i>
+                        <p class="p3">01632 960728</p>
+                        <p class="p4">07700 900687</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>Subscribe Us</h3>
+                <div class="subscribe">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <input type="email" name="email2" class="form-control" id="inputEmail1" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="user" class="form-control" id="text1" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-outline">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="social-icons2">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- /footer section -->
+
+
+    <a href="#0" class="cd-top">Top</a>
+    <!-- js files -->
+    <script src="~/Style/js/jquery.min.js"></script>
+    <script src="~/Style/js/bootstrap.min.js"></script>
+    <script src="~/Style/js/SmoothScroll.min.js"></script>
+    <script src="~/Style/js/index.js"></script>
+    <script src="~/Style/js/top.js"></script>
+    <script src="~/Style/js/bgfader.js"></script>
+    <script>
+        var myBgFader = $('.header').bgfader([
+            '../style/images/banner1-1.jpg',
+            '../style/images/banner1-2.jpg',
+            '../style/images/banner1-3.jpg',
+            '../style/images/banner1-4.jpg',
+        ], {
+                'timeout': 2000,
+                'speed': 3000,
+                'opacity': 0.4
+            })
+
+        myBgFader.start()
+
+
+
+        function myFunctionUser() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+
+    </script>
+    <!-- /js files -->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

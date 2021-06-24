@@ -1,0 +1,39 @@
+﻿@page
+
+<head>
+
+    <style>
+
+        .form-group {
+            margin-top: 20%;
+        }
+    </style>
+
+
+</head>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="ImageUpload">
+                <div class="form-group row">
+                    <div class="col-md-10">
+                        <p>Please Upload A Picture of Your Driver Copy For Verification:</p>
+                        <input type="file" name="files" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-10">
+                        <br />
+                        <input type="submit" class="btn btn-danger" value="Upload" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
